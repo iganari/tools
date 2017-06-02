@@ -1,6 +1,6 @@
-# aws構築用shell
+# AWS上のVPC環境をTerraformを用いて構築していく
 
-terraform/hashicorpを使う
+[Terraform by HashiCorp](https://www.terraform.io/)
 
 
 ### インストール
@@ -30,7 +30,7 @@ $ cp -a credentials.json.sample credentials.json
 + 設定ファイル
 
 ```
-aszoo-aws-main.tf
+aws-main.tf
 ```
 
 
@@ -47,3 +47,7 @@ $ sh tf-build.sh
 ```
 $ sh tf-remove.sh
 ```
+
++ 補足
+
+暫定として設定ファイルはignoreしているが、構築する際はignoreを取ってgit管理したほうがよい
