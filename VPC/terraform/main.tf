@@ -55,21 +55,21 @@ resource "aws_route_table" "route-table-public" {
         gateway_id = "${aws_internet_gateway.internet_gateway.id}"
     }
     tags {
-        Name  = "${var.product_name}"
+        Name  = "${var.product_name}-public"
     }
 }
 
-resource "aws_main_route_table_association" "main_association" {
+resource "aws_main_route_table_association" "association" {
   vpc_id         = "${aws_vpc.vpc.id}"
   route_table_id = "${aws_route_table.route-table-public.id}"
 }
 
 
-# resource "aws_route_table_association" "puclic-a" {
-#     subnet_id = "${aws_subnet.public-a.id}"
-#     route_table_id = "${aws_route_table.public-route.id}"
-# }
-#  
+resource "aws_route_table_association" "association" {
+    subnet_id = "${aws_subnet.subnet-public.id}"
+    route_table_id = "${aws_route_table.route-table-public.id}"
+}
+ 
 
 
 
@@ -119,54 +119,3 @@ resource "aws_main_route_table_association" "main_association" {
 #   value = "${aws_instance.cm-test.public_ip}"
 # }
 
-# ---------------------------------------------------- #
-
-# resource "aws_internet_gateway" "myGW" {
-#     vpc_id = "${aws_vpc.myVPC.id}"
-#     tags {
-#       Name = "aszoo-api-stg"
-#     }
-# }
-#  
-# resource "aws_subnet" "public-a" {
-#     vpc_id = "${aws_vpc.myVPC.id}"
-#     cidr_block = "172.30.1.0/24"
-#     availability_zone = "us-east-2a"
-#     tags {
-#       Name = "aszoo-api-stg"
-#     }
-# }
-#  
-# resource "aws_route_table" "public-route" {
-#     vpc_id = "${aws_vpc.myVPC.id}"
-#     route {
-#         cidr_block = "0.0.0.0/0"
-#         gateway_id = "${aws_internet_gateway.myGW.id}"
-#     }
-#     tags {
-#       Name = "aszoo-api-stg"
-#     }
-# }
-#  
-# resource "aws_route_table_association" "puclic-a" {
-#     subnet_id = "${aws_subnet.public-a.id}"
-#     route_table_id = "${aws_route_table.public-route.id}"
-# }
-#  
-# resource "aws_security_group" "admin" {
-#     name = "admin"
-#     description = "Allow SSH inbound traffic"
-#     vpc_id = "${aws_vpc.myVPC.id}"
-#     ingress {
-#         from_port = 22
-#         to_port = 22
-#         protocol = "tcp"
-#         cidr_blocks = ["0.0.0.0/0"]
-#     }
-#     egress {
-#         from_port = 0
-#         to_port = 0
-#         protocol = "-1"
-#         cidr_blocks = ["0.0.0.0/0"]
-#     }
-# }
