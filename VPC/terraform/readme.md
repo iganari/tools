@@ -30,7 +30,7 @@ $ cp -a credentials.json.sample credentials.json
 + 設定ファイル
 
 ```
-aws-main.tf
+vpc.tf
 ```
 
 
