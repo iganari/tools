@@ -8,7 +8,7 @@ variable "product_name" {}
 provider "aws" {
     access_key = "${var.aws_access_key}"
     secret_key = "${var.aws_secret_key}"
-    region     = "us-east-2"
+    region     = "${var.region}"
 }
  
 resource "aws_vpc" "vpc" {
@@ -24,7 +24,7 @@ resource "aws_vpc" "vpc" {
 resource "aws_subnet" "subnet-public" {
     vpc_id = "${aws_vpc.vpc.id}"
     cidr_block = "172.16.129.0/24"
-    availability_zone = "us-east-2a"
+    availability_zone = "${var.region}a"
     tags {
         Name  = "${var.product_name}-public"
     }
@@ -33,7 +33,7 @@ resource "aws_subnet" "subnet-public" {
 ### resource "aws_subnet" "subnet-private" {
 ###     vpc_id = "${aws_vpc.vpc.id}"
 ###     cidr_block = "172.16.0.0/24"
-###     availability_zone = "us-east-2c"
+###     availability_zone = "${var.region}c"
 ###     tags {
 ###         Name  = "${var.product_name}-private"
 ###     }
