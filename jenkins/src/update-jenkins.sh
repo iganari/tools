@@ -8,14 +8,14 @@ _VER=`curl http://updates.jenkins-ci.org/download/war/index.html | grep jenkins.
 
 update_jenkins()
 {
-  mkdir ${_JDIR}/${_VER}
-  wget http://updates.jenkins-ci.org/download/war/${_VER}/jenkins.war -O ${_JDIR}/${_VER}/jenkins.war
+  sudo mkdir ${_JDIR}/${_VER}
+  sudo wget http://updates.jenkins-ci.org/download/war/${_VER}/jenkins.war -O ${_JDIR}/${_VER}/jenkins.war
   
-  unlink ${_JDIR}/jenkins.war
-  ln -s ${_JDIR}/${_VER}/jenkins.war ${_JDIR}/jenkins.war
-  systemctl stop jenkins
+  sudo unlink ${_JDIR}/jenkins.war
+  sudo ln -s ${_JDIR}/${_VER}/jenkins.war ${_JDIR}/jenkins.war
+  sudo systemctl stop jenkins
   sleep 10
-  systemctl start jenkins
+  sudo systemctl start jenkins
 }
 
 
