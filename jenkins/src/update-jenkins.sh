@@ -6,22 +6,5 @@ _JDIR='/usr/lib/jenkins'
 _VER=`curl http://updates.jenkins-ci.org/download/war/index.html | grep jenkins.war | grep download | head -n1 | awk -F\/ '{print $10}'`
 
 
-update_jenkins()
-{
-  sudo mkdir ${_JDIR}/${_VER}
-  sudo wget http://updates.jenkins-ci.org/download/war/${_VER}/jenkins.war -O ${_JDIR}/${_VER}/jenkins.war
-  
-  sudo unlink ${_JDIR}/jenkins.war
-  sudo ln -s ${_JDIR}/${_VER}/jenkins.war ${_JDIR}/jenkins.war
-  sudo systemctl stop jenkins
-  sleep 10
-  sudo systemctl start jenkins
-}
-
-
-if [ -e ${_JDIR/${_VER}} ]; then
-  echo "directory Exist!"
-else
-  echo "directory  Exist!"
-  update_jenkins
-fi
+sh ./upgrade-jenkins.sh
+sh ./restart-jenkins.sh
